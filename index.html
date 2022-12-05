@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat de Nounou</title>
+    <style>
+        #messages{
+            border: 1px solid black;
+            height: 90vh;
+        }
+        #messages p{
+            margin:0;
+            padding: 10px;
+        }
+        #messages :nth-child(odd){
+        background-color: aqua;
+        }
+        form{
+            display: flex;
+        }
+        #name{
+            flex:1;
+            padding: 15px;
+        }
+        #message{
+            flex:5;
+        }
+        #button{
+            flex:1;
+            padding:15px;
+            border:none;
+            background-color: green;
+            color:white;
+        }
+    </style>
+</head>
+<body>
+<!-- PARTI CLIENT  -->
+<h1>Chat de Nounou</h1>
+<div id="messages">
+
+</div>
+<form id="form">
+    <input type="text" id="name" placeholder="Entrez votre nom">
+    <input type="text" id="message" placeholder="Entrez votre message">
+    <button id="button">Envoyer</button>
+</form>
+<!--  On cherche socket.io.js -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    // On se connect au serveur socket
+    const socket = io();
+    // window.onload = on verifie que nos ressources sois bien chargé
+    window.onload = () => {
+        // On écoute l'évènement submit après la validation du formulaire
+        // On va ajouter un evenement sur le selecteur du formulaire quand il est soumis
+        document.querySelector("form").addEventListener("submit",(e) => {
+             e.preventDefault();
+            // PREVENT DEFAULT va empecher l'envoi du formulaire
+            const name = document.querySelector("#name")
+            const message = document.querySelector("#message");
+
+            // On envoie le message
+
+             socket.emit("chat_message", { name: name.value, message: message.value })
+
+        });
+
+        // On écoute l'evenement "chat_message"
+        socket.on("chat_message", (msg) => {
+            console.dir(msg);
+             document.querySelector("#messages").innerHTML += '<p>' + msg.name + ' dit ' + msg.message + '</p>' ;
+            // Quand on recois un message il s'affiche :)
+        })
+
+    }
+</script>
+</body>
+</html>

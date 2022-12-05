@@ -1,0 +1,29 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "Chat en temps réelle test",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/Johan667/chat-v1.git"
+  },
+  "keywords": [
+    "chat",
+    "socket",
+    "io"
+  ],
+  "author": "Johan Kasri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/Johan667/chat-v1/issues"
+  },
+  "homepage": "https://gitlab.com/Johan667/chat-v1#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node": "^19.2.0",
+    "socket.io": "^4.5.4"
+  }
+}
