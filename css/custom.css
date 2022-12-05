@@ -1,0 +1,28 @@
+#messages{
+    border: 1px solid black;
+    height: 90vh;
+}
+#messages p{
+    margin:0;
+    padding: 10px;
+}
+#messages :nth-child(odd){
+    background-color: aqua;
+}
+form{
+    display: flex;
+}
+#name{
+    flex:1;
+    padding: 15px;
+}
+#message{
+    flex:5;
+}
+#button{
+    flex:1;
+    padding:15px;
+    border:none;
+    background-color: green;
+    color:white;
+}

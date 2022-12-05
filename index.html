@@ -6,48 +6,70 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Chat de Nounou</title>
-    <style>
-        #messages{
-            border: 1px solid black;
-            height: 90vh;
-        }
-        #messages p{
-            margin:0;
-            padding: 10px;
-        }
-        #messages :nth-child(odd){
-        background-color: aqua;
-        }
-        form{
-            display: flex;
-        }
-        #name{
-            flex:1;
-            padding: 15px;
-        }
-        #message{
-            flex:5;
-        }
-        #button{
-            flex:1;
-            padding:15px;
-            border:none;
-            background-color: green;
-            color:white;
-        }
-    </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
 <body>
+<style>
+    .text-center{
+        color: beige;
+        text-align: center;
+    }
+#messages{
+border: 1px solid black;
+height: 70vh;
+    background-color: beige;
+}
+#messages p{
+margin:0;
+padding: 10px;
+}
+#messages :nth-child(odd){
+background-color: #90EE90;
+
+}
+form{
+display: flex;
+    width: 70vw;
+    margin: auto;
+    padding: 20px;
+}
+#name{
+flex:1;
+padding: 15px;
+}
+#message{
+flex:5;
+}
+#button{
+flex:1;
+padding:15px;
+border:none;
+background-color: green;
+color:white;
+}
+body{
+    background-color: black;
+}
+
+</style>
 <!-- PARTI CLIENT  -->
-<h1>Chat de Nounou</h1>
+<h1 class="text-center">Chat de Nounou</h1>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
 <div id="messages">
 
+</div>
+    </div>
 </div>
 <form id="form">
     <input type="text" id="name" placeholder="Entrez votre nom">
     <input type="text" id="message" placeholder="Entrez votre message">
     <button id="button">Envoyer</button>
 </form>
+
+
 <!--  On cherche socket.io.js -->
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -72,11 +94,30 @@
         // On écoute l'evenement "chat_message"
         socket.on("chat_message", (msg) => {
             console.dir(msg);
-             document.querySelector("#messages").innerHTML += '<p>' + msg.name + ' dit ' + msg.message + '</p>' ;
+            document.querySelector("#messages").innerHTML += '<p>' + '<b>' + msg.name + '</b>' + ' dit ' + '<br>' + msg.message + '</p>' ;
             // Quand on recois un message il s'affiche :)
         })
 
     }
 </script>
+<script>
+    function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        m = checkTime(m);
+        document.getElementById('time').innerHTML =
+            "Local Time : "+h + ":" + m;
+        var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+        if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
+
+    startTime();
+</script>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
 </html>
